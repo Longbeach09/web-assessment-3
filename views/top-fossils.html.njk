@@ -7,10 +7,19 @@
     <title>Most Liked Fossils</title>
   </head>
   <body>
-    <div class="fossil-div">
-      <h3>{{ fossils[0].name }}</h3>
-      <h2>Liked {{ fossils[0].num_likes }} times.</h2>
-      <img src="{{ fossils[0].img }}" />
+    <h1>Most Liked Fossils</h1>
+    
+    <!-- Display the user's name if available -->
+    <h2>Welcome, {{ userName }}</h2>
+
+    <!-- Loop through and display fossils -->
+    {% for fossilKey, fossil in fossils %}
+    <div class="top-fossil">
+            <h3>{{ userName }}, this is a {{ fossil.name }}</h3>
+
+      <h2>Liked {{ fossil.num_likes }} times.</h2>
+      <img src="{{ fossil.img }}" alt="{{ fossil.name }}" />
     </div>
+    {% endfor %}
   </body>
 </html>
