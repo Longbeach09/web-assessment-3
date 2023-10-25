@@ -63,11 +63,15 @@ const OTHER_FOSSILS = [
 ];
 app.get("/top-fossils", (req, res) => {
   console.log("Received GET request to /top-fossils");
-  const userName = req.session.userName || "";
-  res.render("top-fossils.html.njk", {
-    fossils: MOST_LIKED_FOSSILS,
-    userName,
-  }); //confused on how this works
+  const userName = req.session.userName;
+  if (userName) {
+    res.render("top-fossils.html.njk", {
+      fossils: MOST_LIKED_FOSSILS,
+      userName,
+    });
+  } else {
+    res.redirect("/");
+  }
 });
 
 app.get("/", (req, res) => {
@@ -92,6 +96,22 @@ app.post("/get-name", (req, res) => {
     res.redirect("/top-fossils");
   } else {
     res.send("Please enter a valid name."); //i need hlp explaining what this does
+  }
+});
+
+app.post("/like-fossil", (req, res) => {
+  const selectedFossilKey = req.body.fossil;
+  const selectedFossil = MOST_LIKED_FOSSILS[selectedFossilKey];
+
+  if (selectedFossil) {
+    // Increment the num_likes count for the selected fossil
+    selectedFossil.num_likes += 1;
+
+    // Render the thank-you template
+    res.render("thank-you.html.njk", { userName: req.session.userName });
+  } else {
+    // Handle an invalid selection
+    res.send("Invalid selection. Please try again.");
   }
 });
 
