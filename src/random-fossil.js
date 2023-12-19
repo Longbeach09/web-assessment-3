@@ -3,12 +3,15 @@ import axios from "axios";
 const randomFossilBtn = document.getElementById("get-random-fossil");
 
 randomFossilBtn.addEventListener("click", async () => {
-  const response = await axios.get("/random-fosiil.json");
+  try {
+    const response = await axios.get("/random-fossil.json");
 
-  console.log(response);
+    const imgDiv = document.querySelector("#random-fossil-image");
+    const nameParagraph = document.querySelector("#random-fossil-name");
 
-  const imgDiv = document.querySelector("#img-div");
-  imgDiv.setAttribute(src, response.data.img);
+    imgDiv.src = response.data.img;
+    nameParagraph.textContent = response.data.name;
+  } catch (error) {
+    console.error("Error fetching random fossil:", error);
+  }
 });
-
-//

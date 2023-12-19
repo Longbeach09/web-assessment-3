@@ -6,7 +6,7 @@ import nunjucks from "nunjucks";
 import ViteExpress from "vite-express";
 
 const app = express();
-const port = "8000";
+const port = "6966";
 
 app.use(morgan("dev"));
 app.use(express.urlencoded({ extended: false }));
